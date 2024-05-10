@@ -1,5 +1,8 @@
 # queries-compatibility-check
 
+本项目在进行Aurora MySQL 5.7到8.0的业务SQL语句的语法兼容性检查时，将使用VPC traffic mirroring进行数据库流量（业务SQL语句）的采集， 在采集到某段时间内在Aurora MySQL 5.7上执行的业务SQL语句之后，我们会使用关键字和STATEMENT_DIGEST_TEXT方法来进行语法兼容性检查。经过初步测试，以下表格中D列标YES的检查项，可以通过这种方式检查到。
+
+
 ### 架构图
 
 ![](architecture.png)
