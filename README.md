@@ -35,10 +35,16 @@ cd queries-compatibility-check
 pip3 install -r requirements.txt
 
 # Install requirements for lambda layer
-cd infrastructure/query_validation/lambda_function/lambda_layer/python && pip3 install -t . pymysql
-# Go back to folder queries-compatibility-check/
-cd infrastructure/query_collection/lambda_function/lambda_layer/dnspython/python && pip3 install -t . dnspython
+cd infrastructure/query_validation/lambda_function/
+mkdir -p lambda_layer/python && cd lambda_layer/python/
+pip3 install -t . pymysql
 
+# Go back to folder queries-compatibility-check/
+cd infrastructure/query_collection/lambda_function/
+mkdir -p lambda_layer/dnspython/python && cd lambda_layer/dnspython/python
+pip3 install -t . dnspython
+
+# Go back to folder queries-compatibility-check/
 cdk bootstrap -c env=<environment name> \
 -c vpc=<VPC ID> \
 -c private_subnets=<private subnets ID> \
