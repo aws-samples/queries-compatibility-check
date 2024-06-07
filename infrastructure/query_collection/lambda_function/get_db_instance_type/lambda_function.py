@@ -70,6 +70,11 @@ def lambda_handler(event, context):
     cluster_identifier = event['cluster_identifier']
     traffic_window = event['traffic_window']
 
+    now = datetime.now()
+    stop_time = now + timedelta(hours=traffic_window)
+    iso_time_with_utc_offset = '{}+00:00'.format(stop_time.isoformat())
+    database_info['stop_time'] = iso_time_with_utc_offset
+    
     # Describe the database cluster
     try:
         response = rds.describe_db_clusters(
@@ -127,11 +132,6 @@ def lambda_handler(event, context):
         database_info['instances'].append(instance)
         database_info['instance_count'] = database_info['instance_count'] + calculate_instance_count_by_db_class(
             instance['M']['class']['S'])
-
-    now = datetime.now()
-    stop_time = now + timedelta(hours=traffic_window)
-    iso_time_with_utc_offset = '{}+00:00'.format(stop_time.isoformat())
-    database_info['stop_time'] = iso_time_with_utc_offset
 
     print('database_info: ')
     print(database_info)
