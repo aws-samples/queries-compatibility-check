@@ -131,13 +131,26 @@ def replace_all_placeholder_as_empty_string_value(event):
 
 def send_command_to_queue(event):
 
-    event['query_hash'] = blake2b(event['query'].encode()).hexdigest()
     event['query'] = event['query'].replace('\\n', ' ').replace('\\t', ' ').replace('\\r', ' ')
 
-    sqs_client.send_message(
-        QueueUrl=sqs_url,
-        MessageBody=json.dumps(event),
-    )
+    queries = event['query'].split(';')
+
+    for query in queries:
+        if query.strip() != '':
+            event['query'] = query
+            event['query_hash'] = blake2b(event['query'].encode()).hexdigest()
+            sqs_client.send_message(
+                QueueUrl=sqs_url,
+                MessageBody=json.dumps(event),
+            )
+
+    # event['query_hash'] = blake2b(event['query'].encode()).hexdigest()
+    # event['query'] = event['query'].replace('\\n', ' ').replace('\\t', ' ').replace('\\r', ' ')
+
+    # sqs_client.send_message(
+    #     QueueUrl=sqs_url,
+    #     MessageBody=json.dumps(event),
+    # )
 
 
 def process_output(output):
