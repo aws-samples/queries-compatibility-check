@@ -47,8 +47,11 @@ def check_for_unsupported_functions(query):
         A list of unsupported functions found in the query, or an empty list if none are found.
     """
     functions = ['load_file', 'udf', 'geometrycollectome', 'geomcollfromtext',
-                 'linestringfromtext', 'polygonfromtext', 'pointfromtex']
-    function_pattern = re.compile('|'.join(map(re.escape, functions)), re.IGNORECASE)
+                 'linestringfromtext', 'polygonfromtext', 'pointfromtex', 'json_append',
+                 'encode', 'decode', 'encrypt', 'des_encrypt', 'des_decrypt', 'glength']
+  
+     function_pattern = re.compile(r'\b(' + '|'.join(map(re.escape, functions)) + r')\s*\(', re.IGNORECASE)
+
     matches = function_pattern.findall(query)
     return matches
 
