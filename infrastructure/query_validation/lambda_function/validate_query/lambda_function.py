@@ -37,9 +37,11 @@ conn = pymysql.connect(host=ENDPOINT, user=USER, passwd=token, port=PORT, databa
 
 
 def check_for_unsupported_functions(query):
+    def check_for_unsupported_functions(query):
     """
     Checks a MySQL query for potential unsupported functions using a regular expression.
-
+    `decode` decode  (
+    
     Args:
         query: The MySQL query string to be analyzed.
 
@@ -49,9 +51,11 @@ def check_for_unsupported_functions(query):
     functions = ['load_file', 'udf', 'geometrycollectome', 'geomcollfromtext',
                  'linestringfromtext', 'polygonfromtext', 'pointfromtex', 'json_append',
                  'encode', 'decode', 'encrypt', 'des_encrypt', 'des_decrypt', 'glength']
-  
-     function_pattern = re.compile(r'\b(' + '|'.join(map(re.escape, functions)) + r')\s*\(', re.IGNORECASE)
-
+    # function_pattern = re.compile('|'.join(map(re.escape, functions)), re.IGNORECASE)
+    
+    pattern = r'\b(' + '|'.join(map(re.escape, functions)) + r')\s*\('
+    
+    function_pattern = re.compile(pattern, re.IGNORECASE)
     matches = function_pattern.findall(query)
     return matches
 
