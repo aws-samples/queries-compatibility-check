@@ -28,8 +28,6 @@ https://ap-southeast-1.console.aws.amazon.com/cloudshell/home?region=ap-southeas
 ```shell
 git clone https://github.com/aws-samples/queries-compatibility-check.git
 
-unzip queries-compatibility-check.zip
-
 cd queries-compatibility-check
 
 pip3 install -r requirements.txt
