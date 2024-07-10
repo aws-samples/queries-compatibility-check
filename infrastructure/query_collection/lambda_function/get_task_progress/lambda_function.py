@@ -89,6 +89,7 @@ def get_task_info(task_id: str):
                 return {"message": item["message"]}
 
             return_dict["status"] = status
+            return_dict["cluster_identifier"] = item["cluster_identifier"]
             return_dict["captured_query"] = int(item["captured_query"])
             return_dict["checked_query"] = int(item["checked_query"])
             return_dict["failed_query"] = int(item["failed_query"])
