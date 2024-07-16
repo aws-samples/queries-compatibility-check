@@ -37,7 +37,6 @@ conn = pymysql.connect(host=ENDPOINT, user=USER, passwd=token, port=PORT, databa
 
 
 def check_for_unsupported_functions(query):
-    def check_for_unsupported_functions(query):
     """
     Checks a MySQL query for potential unsupported functions using a regular expression.
     `decode` decode  (
