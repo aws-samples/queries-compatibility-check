@@ -78,7 +78,7 @@ class DynamoDBTables(Construct):
         self.log_table_source = source.DynamoEventSource(
             self.log_table,
             retry_attempts=1,
-            batch_size=1,
+            batch_size=50,
             starting_position=aws_lambda.StartingPosition.LATEST,
             filters=[aws_lambda.FilterCriteria.filter({"eventName": aws_lambda.FilterRule.is_equal("INSERT")})]
         )
