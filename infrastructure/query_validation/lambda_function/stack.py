@@ -43,6 +43,7 @@ class LambdaFunction(Construct):
             layers=[validate_python_layer],
             allow_public_subnet=False,
             vpc=vpc,
+            memory_size=1024,
             security_groups=[sg],
             vpc_subnets=ec2.SubnetSelection(
                 subnets=private_subnets
