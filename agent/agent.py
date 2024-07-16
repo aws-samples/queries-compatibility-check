@@ -128,11 +128,42 @@ def replace_all_placeholder_as_empty_string_value(event):
     event['query'] = event['query'].replace('?', "''")
     send_command_to_queue(event)
 
+def remove_sql_comments(sql):
+    # Remove -- style comments
+    sql = re.sub(r'--.*?(\n|$)', '\n', sql)
+    
+    # Remove # style comments
+    sql = re.sub(r'#.*?(\n|$)', '\n', sql)
+    
+    # Remove /* */ style comments
+    sql = re.sub(r'/\*[\s\S]*?\*/', '', sql)
+    
+    # Remove extra whitespace
+    sql = re.sub(r'\s+', ' ', sql).strip()
+    
+    return sql
+
+def replace_numbers_with_one(sql):
+    # Regular expression pattern to match integers and floats
+    pattern = r'\b\d+(\.\d+)?\b'
+    
+    # Replace all matches with '1'
+    result = re.sub(pattern, '1', sql)
+    
+    return result
 
 def send_command_to_queue(event):
 
+    # remove special characters, like new line.
     event['query'] = event['query'].replace('\\n', ' ').replace('\\t', ' ').replace('\\r', ' ')
 
+    # remove comments
+    event['query'] = remove_sql_comments(event['query'])
+
+    # remove all digits
+    event['query'] = replace_numbers_with_one(event['query'])
+
+    # replit multiple queries
     queries = event['query'].split(';')
 
     for query in queries:
