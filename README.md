@@ -82,7 +82,7 @@ Request body:
 ```
 
 
-database_endpoint为数据库endpoint。traffic_window为流量采集时长，单位为小时。
+cluster_identifier为数据库identifier。traffic_window为流量采集时长，单位为小时。
 
 Response:
 ```json
