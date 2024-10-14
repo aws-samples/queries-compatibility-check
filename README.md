@@ -141,7 +141,7 @@ message是报错信息，默认为空。
 
 
 ### Legal
-During the launch of this cloudfront-prewarm, you will install software dnspython on the Lambda function layer. The software packages and/or sources you will install will be from the Amazon Linux distribution, as well as from third party sites. Below is the list of such third party software, the source link, and the license link for each software. Please review and decide your comfort with installing these before continuing.
+During the deployment, you will install software dnspython on the Lambda function layer. The software packages and/or sources you will install will be from the Amazon Linux distribution, as well as from third party sites. Below is the list of such third party software, the source link, and the license link for each software. Please review and decide your comfort with installing these before continuing.
 
 #### dnspython (https://www.dnspython.org/)
 Source: https://github.com/rthalley/dnspython
